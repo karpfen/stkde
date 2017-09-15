@@ -1,77 +1,28 @@
----
-output: github_document
----
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+stkde
+=====
 
+This package is an implementation of the STKDE function described in Nakaya and Yano (2010).
 
-
-# stkde
-
-The goal of stkde is to ...
-
-## Installation
+Installation
+------------
 
 You can install stkde from github with:
 
-
-```r
+``` r
 # install.packages("devtools")
 devtools::install_github("karpfen/stkde")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-
-```r
-## basic example code
-```
-
-[![Build Status](https://travis-ci.org/karpfen/stkde.svg)](https://travis-ci.org/karpfen/stkde) 
-[![Project Status: Concept - Minimal or no implementation has been done yet.](http://www.repostatus.org/badges/0.1.0/concept.svg)](http://www.repostatus.org/#concept)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/stkde)](http://cran.r-project.org/web/packages/stkde) 
-![downloads](http://cranlogs.r-pkg.org/badges/grand-total/stkde)
-
-stkde is ...
-
-The following functions are implemented:
-
-The following data sets are included:
-
-### News
-
-- Version  released
+[![Build Status](https://travis-ci.org/karpfen/stkde.svg)](https://travis-ci.org/karpfen/stkde) [![Project Status: Concept - Minimal or no implementation has been done yet.](http://www.repostatus.org/badges/0.1.0/concept.svg)](http://www.repostatus.org/#concept) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/stkde)](http://cran.r-project.org/web/packages/stkde) ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/stkde)
 
 ### Installation
 
-
-```r
+``` r
 devtools::install_github("karpfen/stkde")
 ```
 
+References
+==========
 
-
-### Usage
-
-
-```r
-library(stkde)
-
-# current verison
-packageVersion("stkde")
-
-```
-
-### Test Results
-
-
-```r
-library(stkde)
-library(testthat)
-
-date()
-
-test_dir("tests/")
-```
+Nakaya, Tomoki, and Keiji Yano. 2010. “Visualising Crime Clusters in a Space-Time Cube: An Exploratory Data-Analysis Approach Using Space-Time Kernel Density Estimation and Scan Statistics.” *Transactions in GIS* 14 (3). Wiley Online Library: 223–39.

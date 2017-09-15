@@ -4,8 +4,14 @@ Version: 0.0.0.9000
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends: R (>= 3.4.1)
-License: What license is it under?
+License: GPL-3
+LinkingTo:
+    Rcpp,
+    RcppArmadillo
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
+Imports:
+    Rcpp (>= 0.12.11)
 RoxygenNote: 6.0.1
+SystemRequirements: C++11
