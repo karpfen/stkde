@@ -3,28 +3,41 @@
 
 #' stkde
 #'
-#' Calculates the spatiotemporal 
+#' Calculates a spatiotemporal kernel density estimation (STKDE) for a given
+#' point.
 #'
-#' @param coords \code{arma::mat} object with x and y coordinates in the
-#' columns.
+#' @param n Total number of points.
+#' @param x X coordinate of event.
+#' @param y y coordinate of event.
+#' @param t T coordinate of event.
+#' @param xi X coordinate of grid point.
+#' @param yi Y coordinate of grid point.
+#' @param ti T coordinate of grid point.
+#' @param hs Spatial bandwidth.
+#' @param ht Temporal bandwidth.
 #'
-#' @return the linear directional mean.
+#' @return stkde value
 #'
 #' @noRd
 NULL
 
 #' rcpp_stkde
 #'
-#' Calculates a spatiotemporal kernel density estimation (STKDE).
+#' Calculates a spatiotemporal kernel density estimation (STKDE) and returns it
+#' as a 3D-array
 #'
-#' @param pts_x X coordinates of input data.
-#' @param pts_y Y coordinates of input data.
-#' @param pts_z Z coordinates of input data.
-#' @param hs Spatial bandwidth.
+#' @param xyt_in \code{data.frame} containing the x, y and t coordinates of the
+#' input data (projected coordinates).
+#' @param hs Spatial bandwidth in m.
 #' @param ht Temporal bandwidth.
+#' @param x_size Spatial x dimension of output array.
+#' @param y_size Spatial y dimension of output array.
+#' @param t_size Temporal t dimension of output array.
+#'
+#' @return \code{arma::cube} object containing all STKDE values.
 #'
 #' @noRd
-rcpp_ldm <- function(xyz_in, hs, ht, res_sp, res_t) {
-    invisible(.Call(`_stkde_rcpp_ldm`, xyz_in, hs, ht, res_sp, res_t))
+rcpp_stkde <- function(xyt_in, hs, ht, x_size, y_size, t_size) {
+    .Call(`_stkde_rcpp_stkde`, xyt_in, hs, ht, x_size, y_size, t_size)
 }
 

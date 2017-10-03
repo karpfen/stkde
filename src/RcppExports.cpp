@@ -6,23 +6,25 @@
 
 using namespace Rcpp;
 
-// rcpp_ldm
-void rcpp_ldm(Rcpp::DataFrame xyz_in, float hs, float ht, int res_sp, int res_t);
-RcppExport SEXP _stkde_rcpp_ldm(SEXP xyz_inSEXP, SEXP hsSEXP, SEXP htSEXP, SEXP res_spSEXP, SEXP res_tSEXP) {
+// rcpp_stkde
+arma::cube rcpp_stkde(Rcpp::DataFrame xyt_in, float hs, float ht, int x_size, int y_size, int t_size);
+RcppExport SEXP _stkde_rcpp_stkde(SEXP xyt_inSEXP, SEXP hsSEXP, SEXP htSEXP, SEXP x_sizeSEXP, SEXP y_sizeSEXP, SEXP t_sizeSEXP) {
 BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type xyz_in(xyz_inSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type xyt_in(xyt_inSEXP);
     Rcpp::traits::input_parameter< float >::type hs(hsSEXP);
     Rcpp::traits::input_parameter< float >::type ht(htSEXP);
-    Rcpp::traits::input_parameter< int >::type res_sp(res_spSEXP);
-    Rcpp::traits::input_parameter< int >::type res_t(res_tSEXP);
-    rcpp_ldm(xyz_in, hs, ht, res_sp, res_t);
-    return R_NilValue;
+    Rcpp::traits::input_parameter< int >::type x_size(x_sizeSEXP);
+    Rcpp::traits::input_parameter< int >::type y_size(y_sizeSEXP);
+    Rcpp::traits::input_parameter< int >::type t_size(t_sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_stkde(xyt_in, hs, ht, x_size, y_size, t_size));
+    return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_stkde_rcpp_ldm", (DL_FUNC) &_stkde_rcpp_ldm, 5},
+    {"_stkde_rcpp_stkde", (DL_FUNC) &_stkde_rcpp_stkde, 6},
     {NULL, NULL, 0}
 };
 
