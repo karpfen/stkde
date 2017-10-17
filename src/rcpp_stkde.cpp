@@ -6,7 +6,6 @@
 //' Calculates a spatiotemporal kernel density estimation (STKDE) for a given
 //' point.
 //'
-//' @param n Total number of points.
 //' @param x X coordinate of event.
 //' @param y y coordinate of event.
 //' @param t T coordinate of event.
@@ -19,11 +18,9 @@
 //' @return stkde value
 //'
 //' @noRd
-float stkde_pt (int n, float x, float y, float t, float xi, float yi, float ti,
+float stkde_pt (float x, float y, float t, float xi, float yi, float ti,
         float hs, float ht)
 {
-    float bw_factor = 1 / (n * hs * hs * ht);
-
     float u = (x - xi) / hs;
     float v = (y - yi) / hs;
     float w = (t - ti) / ht;
@@ -33,12 +30,15 @@ float stkde_pt (int n, float x, float y, float t, float xi, float yi, float ti,
     if (usvs >= 1)
         ks = (2 / M_PI) * (1 - usvs);
 
-    float ws = w * w;
     float kt = 0;
-    if (ws >= 1)
-        kt = 0.75 * (1 - (ws));
+    if (ks != 0)
+    {
+        float ws = w * w;
+        if (ws >= 1)
+            kt = 0.75 * (1 - (ws));
+    }
 
-    return (bw_factor * ks * kt);
+    return (ks * kt);
 }
 
 std::vector <int> index_in_range (int n, std::vector <float> x,
@@ -92,16 +92,16 @@ arma::cube rcpp_stkde (Rcpp::DataFrame xyt_in, float hs, float ht, int x_size,
     std::vector <float> pts_t = Rcpp::as <std::vector <float>> (xyt_in ["t"]);
     int n = pts_x.size ();
 
-    auto xmin = min_element (std::begin (pts_x), std::end (pts_x));
-    auto ymin = min_element (std::begin (pts_y), std::end (pts_y));
-    auto tmin = min_element (std::begin (pts_t), std::end (pts_t));
-    auto xmax = max_element (std::begin (pts_x), std::end (pts_x));
-    auto ymax = max_element (std::begin (pts_y), std::end (pts_y));
-    auto tmax = max_element (std::begin (pts_t), std::end (pts_t));
+    float xmin = *min_element (std::begin (pts_x), std::end (pts_x));
+    float ymin = *min_element (std::begin (pts_y), std::end (pts_y));
+    float tmin = *min_element (std::begin (pts_t), std::end (pts_t));
+    float xmax = *max_element (std::begin (pts_x), std::end (pts_x));
+    float ymax = *max_element (std::begin (pts_y), std::end (pts_y));
+    float tmax = *max_element (std::begin (pts_t), std::end (pts_t));
 
-    float xrange = abs (xmin - xmax);
-    float yrange = abs (ymin - ymax);
-    float trange = abs (tmin - tmax);
+    float xrange = abs (xmax - xmin);
+    float yrange = abs (ymax - ymin);
+    float trange = abs (tmax - tmin);
 
     float x_resolution = xrange / x_size;
     float y_resolution = yrange / y_size;
@@ -115,20 +115,23 @@ arma::cube rcpp_stkde (Rcpp::DataFrame xyt_in, float hs, float ht, int x_size,
             for (int k = 0; k < t_size; k ++)
             {
                 float density = 0;
-                float xi = i * xrange;
-                float yi = j * yrange;
-                float ti = k * trange;
+                float xi = xmin + i * x_resolution;
+                float yi = ymin + j * y_resolution;
+                float ti = tmin + k * t_resolution;
 
                 std::vector <int> idx = index_in_range (n, pts_x, pts_y, pts_t,
                         xi, yi, ti, hs, ht);
                 int size = idx.size ();
                 for (int l = 0; l < idx.size (); l ++)
                 {
-                    density += stkde_pt (n, pts_x.at (l), pts_y.at (l),
+                    density += stkde_pt (pts_x.at (l), pts_y.at (l),
                             pts_t.at (l), xi, yi, ti, hs, ht);
                 }
-                stkde_val.at (i, j, k) = density;
+                if (density != 0)
+                    stkde_val.at (i, j, k) = density;
             }
+    float bw_factor = 1 / (n * hs * hs * ht);
+    stkde_val *= bw_factor;
 
     return (stkde_val);
 }
