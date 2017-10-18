@@ -27,14 +27,14 @@ float stkde_pt (float x, float y, float t, float xi, float yi, float ti,
 
     float usvs = u * u + v * v;
     float ks = 0;
-    if (usvs >= 1)
+    if (usvs < 1)
         ks = (2 / M_PI) * (1 - usvs);
 
     float kt = 0;
     if (ks != 0)
     {
         float ws = w * w;
-        if (ws >= 1)
+        if (ws < 1)
             kt = 0.75 * (1 - (ws));
     }
 
