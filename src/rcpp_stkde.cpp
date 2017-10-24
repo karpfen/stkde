@@ -109,7 +109,7 @@ arma::cube rcpp_stkde (Rcpp::DataFrame xyt_in, float hs, float ht, int x_size,
 
     arma::cube stkde_val (x_size, y_size, t_size);
     stkde_val.zeros ();
-    
+
     for (int i = 0; i < x_size; i ++)
         for (int j = 0; j < y_size; j ++)
             for (int k = 0; k < t_size; k ++)
@@ -124,8 +124,9 @@ arma::cube rcpp_stkde (Rcpp::DataFrame xyt_in, float hs, float ht, int x_size,
                 int size = idx.size ();
                 for (int l = 0; l < idx.size (); l ++)
                 {
-                    density += stkde_pt (pts_x.at (l), pts_y.at (l),
-                            pts_t.at (l), xi, yi, ti, hs, ht);
+                    int idxid = idx.at (l);
+                    density += stkde_pt (pts_x.at (idxid), pts_y.at (idxid),
+                            pts_t.at (idxid), xi, yi, ti, hs, ht);
                 }
                 if (density != 0)
                     stkde_val.at (i, j, k) = density;

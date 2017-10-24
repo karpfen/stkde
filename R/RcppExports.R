@@ -6,7 +6,6 @@
 #' Calculates a spatiotemporal kernel density estimation (STKDE) for a given
 #' point.
 #'
-#' @param n Total number of points.
 #' @param x X coordinate of event.
 #' @param y y coordinate of event.
 #' @param t T coordinate of event.
