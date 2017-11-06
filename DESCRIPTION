@@ -12,6 +12,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests: testthat
 Imports:
-    Rcpp (>= 0.12.11)
+    Rcpp (>= 0.12.11),
+    sf
 RoxygenNote: 6.0.1
 SystemRequirements: C++11
