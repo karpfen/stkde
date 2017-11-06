@@ -14,7 +14,7 @@ You can install stkde from github with:
 devtools::install_github("karpfen/stkde")
 ```
 
-[![Build Status](https://travis-ci.org/karpfen/stkde.svg)](https://travis-ci.org/karpfen/stkde) [![Project Status: Concept - Minimal or no implementation has been done yet.](http://www.repostatus.org/badges/0.1.0/concept.svg)](http://www.repostatus.org/#concept) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/stkde)](http://cran.r-project.org/web/packages/stkde) ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/stkde)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![Build Status](https://travis-ci.org/karpfen/stkde.svg)](https://travis-ci.org/karpfen/stkde) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/karpfen/stkde?branch=master&svg=true)](https://ci.appveyor.com/project/karpfen/stkde) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/stkde)](http://cran.r-project.org/web/packages/stkde) ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/stkde)
 
 ### Installation
 
