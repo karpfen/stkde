@@ -33,6 +33,14 @@ get_coordinate_cube_values <- function (xyt, cube)
     return (list (x = xvals, y = yvals, t = tvals))
 }
 
+#' Converts points to a sf object
+#'
+#' @param dat \code{data.frame} with columns lat and lon.
+#' @param epsg The epsg code of the output coordinate reference system.
+#'
+#' @return \code{sf} object of points.
+#'
+#' @export
 coords_to_sf <- function (dat, epsg = 4326)
 {
     pts <- list ("POINT", dim (dat) [1])
